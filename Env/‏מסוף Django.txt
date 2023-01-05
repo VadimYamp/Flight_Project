@@ -1,0 +1,24 @@
+1.סביבה וירטואלית:
+py -3 -m venv Env
+Env\Scripts\activate
+
+2.התקנות Django ו-Python:
+python -m pip install --upgrade pip
+python -m pip install django
+
+3.פתיחת פרוייקט ופתיחת אפליקציה:
+django-admin startproject {Proj_name} .
+python manage.py migrate
+python manage.py startapp {App_name}
+
+4.הרמת שרת לאוויר ועדכון שינויים: 
+python manage.py runserver 
+python manage.py makemigrations
+python manage.py migrate
+
+5.דף ניהול של Django:
+python manage.py createsuperuser
+Username: admin
+
+6.בדיקת תוכנה:
+‎$python manage.py test {App_name}
