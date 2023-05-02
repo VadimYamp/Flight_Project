@@ -1,0 +1,1 @@
+SELECT * FROM flight_db.app_a_n6_countries;

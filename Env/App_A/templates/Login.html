@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>דף התחברות</h1>
+  {% if error_message %}
+    <p>{{ error_message }}</p>
+  {% endif %}
+  <form style="font-size:100px;" method="post">
+    {% csrf_token %}
+    <div>
+      <label for="username">שם-משתמש:</label>
+      <input style="background-color:#000060; color:#FFFFFF; font-size:75px;"
+       type="text" name="username" required>
+    </div>
+
+    <div>
+      <label for="password">סיסמא:</label>
+      <input style="background-color:#500000; color:#FFFFFF; font-size:75px;"
+       type="password" name="password" required>
+    </div>
+
+    <div>
+    <button style="background-color:#004000; color:#FFFFFF; font-size:75px;"
+    type="submit">התחבר</button>
+  </div>
+  </form>
+{% endblock %}

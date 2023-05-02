@@ -11,14 +11,15 @@ django-admin startproject {Proj_name} .
 python manage.py migrate
 python manage.py startapp {App_name}
 
-4.הרמת שרת לאוויר ועדכון שינויים: 
+4.הרמת שרת בוויר ועדכון שינויים:
 python manage.py runserver 
-python manage.py makemigrations
-python manage.py migrate
+python manage.py makemigrations App_A
+python manage.py showmigrations App_A
+python manage.py migrate App_A
 
 5.דף ניהול של Django:
 python manage.py createsuperuser
 Username: admin
 
 6.בדיקת תוכנה:
-‎$python manage.py test {App_name}
+��$python manage.py test {App_name}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+דף הרשמה
+{% endblock %}
+
+{% block content %}
+  <h2>דף הרשמה</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">שלח</button>
+  </form>
+{% endblock %}

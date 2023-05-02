@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% autoescape off %}
+{% block title %}
+רשימת לקוחות
+{% endblock %}
+
+{% block content %}
+  <h1 style="background-color:#000000; color:#FFFF00;">רשימת לקוחות</h1>
+  <table style="background-color:#000000; color:#FFFF00; font-size: 50px; text-align: center; font-weight: bolder;
+  border: 3px solid #FFFFFF; border-collapse: collapse;">
+    <tr>
+      <th>מס'</th>
+      <th>שם פרטי</th>
+      <th>שם משפחה</th>
+      <th>כתובת</th>
+      <th>טלפון</th>
+      <th>אשראי</th>
+      <th>מס' משתמש</th>
+      <th>Action</th>
+      </tr>
+      {% for customer in Customers %}
+      <tr>
+      <td>{{ customer.id }}</td>
+      <td>{{ customer.First_Name }}</td>
+      <td>{{ customer.Last_Name }}</td>
+      <td>{{ customer.Address }}</td>
+      <td>{{ customer.Phone }}</td>
+      <td>{{ customer.Credit }}</td>
+      <td>{{ customer.User_id }}</td>
+      <td>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="delete_id" value="{{ customer.id }}">
+          <button type="submit">Delete</button>
+        </form>
+        {% comment %} <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="update" value="{{ user.id }}">
+          <input type="text" name="name" value="{{ user.Name }}">
+          <button type="submit">Update</button>
+        </form> {% endcomment %}
+      </td>
+      </tr> 
+      {% endfor %}
+  </table>
+{% endblock %}
+
+{% endautoescape %}

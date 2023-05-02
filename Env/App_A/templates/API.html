@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% autoescape off %}
+{% block title %}
+API endpoints
+{% endblock %}
+
+{% block content %}
+
+  <h1 style="background-color:#000000; color:#FFFFFF;">רשימת כתובות מערכתית</h1>
+  <table style="background-color:#000000; color:#FFFFFF; font-size: 50px; text-align: center; font-weight: bolder;
+  border: 3px solid #FFFFFF; border-collapse: collapse;">
+    <tr>
+      <th>מספר</th>
+      <th>קישור</th>
+      <th>כתובת</th>
+    </tr>
+      
+    <tr>
+      <td style="background-color:#000000; color:#FFFFFF;">1</td>
+      <td><span> <a href="{% url 'API_01_GetAllUsers' %}">כל המשתמשים</a></span></td>
+      <td>{% url 'API_01_GetAllUsers' %}</td>
+    </tr>
+
+    <tr>
+      <td style="background-color:#000000; color:#FFFF00;">2</td>
+      <td><span> <a href="{% url 'API_02_GetAllCustomers' %}">כל הלקוחות</a></span></td>
+      <td>{% url 'API_02_GetAllCustomers' %}</td>
+    </tr>
+
+    <tr>
+      <td style="background-color:#000000; color:#00FFFF;">3</td>
+      <td><span> <a href="{% url 'API_03_GetAllAirlines' %}">כל החברות-תעופה</a></span></td>
+      <td>{% url 'API_03_GetAllAirlines' %}</td>
+    </tr>
+
+    <tr>
+      <td style="background-color:#000000; color:#FF00FF;">4</td>
+      <td><span> <a href="{% url 'API_04_GetAllAdministrators' %}">כל המנהלים</a></span></td>
+      <td>{% url 'API_04_GetAllAdministrators' %}</td>
+    </tr>
+
+    <tr>
+      <td style="background-color:#000000; color:#FF8000;">5</td>
+      <td><span> <a href="{% url 'API_05_GetAllUserRoles' %}">סיווג הרשאות</a></span></td>
+      <td>{% url 'API_05_GetAllUserRoles' %}</td>
+    </tr>
+
+    <tr>
+      <td style="background-color:#505000; color:#FFFFFF;">6</td>
+      <td><span> <a href="{% url 'API_06_GetAllCountries' %}">כל המדינות</a></span></td>
+      <td>{% url 'API_06_GetAllCountries' %}</td>
+    </tr>
+
+    <tr>
+      <td style="background-color:#005050; color:#FFFFFF;">7</td>
+      <td><span> <a href="{% url 'API_07_GetAllFlights' %}">כל הטיסות</a></span></td>
+      <td>{% url 'API_07_GetAllFlights' %}</td>
+    </tr>
+
+    <tr>
+      <td style="background-color:#500050; color:#FFFFFF;">8</td>
+      <td><span> <a href="{% url 'API_08_GetAllTickets' %}">כל הכרטיסי טיסה</a></span></td>
+      <td>{% url 'API_08_GetAllTickets' %}</td>
+    </tr>
+
+      <td>9</td>
+      <td>
+        <span> <a href="{% url 'RemoveCustomer' %}">Remove Customer</a></span>
+        <form method="post" action="{% url 'RemoveCustomer' %}">
+          {% csrf_token %}
+          <input type="text" name="cust_id" value="-1">
+          <button type="submit">הקש מספר</button>
+        </form>
+      </td>
+    </tr> 
+  </table>
+{% endblock %}
+{% endautoescape %}
