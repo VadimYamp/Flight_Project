@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% autoescape off %}
+{% block title %}
+רשימת משתמשים
+{% endblock %}
+
+
+
+{% block content %}
+
+  <h1 style="background-color:#000000; color:#FFFFFF;">רשימת משתמשים</h1>
+  <table style="background-color:#000000; color:#FFFFFF; font-size: 50px; text-align: center; font-weight: bolder;
+  border: 3px solid #FFFFFF; border-collapse: collapse;">
+    <tr>
+      <th>מספר</th>
+      <th>שם</th>
+      <th>סיסמא</th>
+      <th>דואר</th>
+      <th>סיווג</th>
+      <th>Action</th>
+      </tr>
+      {% for user in Users %}
+      <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.Name }}</td>
+      <td>{{ user.Password }}</td>
+      <td>{{ user.Email }}</td>
+      <td>{{ user.Role.Name }}</td>
+      <td>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="update" value="{{ user.id }}">
+          <input type="text" name="name" value="{{ user.Name }}">
+          <button type="submit">Update</button>
+        </form>
+      </td>
+      </tr> 
+      {% endfor %}
+  </table>
+{% endblock %}
+{% endautoescape %}

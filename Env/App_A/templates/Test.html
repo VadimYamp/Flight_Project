@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>מערכת לניהול טיסות</title>
+</head>
+<body style="background-color:#402000; color:#FFFFFF;
+ font-size: 50px; text-align: center; font-weight: bolder; direction: rtl;">
+<h1>מבדקים לפונקציות</h1>
+<div>פונקציה c10</div>
+
+<div>מבדק X</div>
+{% for item in Test_X %}
+    <span>{{item.id}},</span>
+{% endfor %}
+
+<div>מבדק Y</div>
+{% for item in Test_Y %}
+    <span>{{item.id}},</span>
+{% endfor %}
+
+<div>מבדק Z</div>
+{% for item in Test_Z %}
+    <span>{{item.id}},</span>
+{% endfor %}
+
+</body>
+</html>

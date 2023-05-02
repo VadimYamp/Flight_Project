@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% autoescape off %}
+{% block title %}
+רשימת טיסות
+{% endblock %}
+
+{% block content %}
+  <h1 style="background-color:#005050; color:#FFFFFF;">רשימת טיסות</h1>
+  <table style="background-color:#005050; color:#FFFFFF; font-size: 50px; text-align: center; font-weight: bolder;
+  border: 3px solid #FFFFFF; border-collapse: collapse;">
+    <tr>
+      <th>מס'</th>
+      <th>חברה</th>
+      <th>מקור</th>
+      <th>יעד</th>
+      <th>המראה</th>
+      <th>נחיתה</th>
+      <th>כרטיסים</th>
+      </tr>
+      {% for flight in Flights %}
+      <tr>
+      <td>{{ flight.id }}</td>
+      <td>{{ flight.Company.Name }}</td>
+      <td>{{ flight.Origin.Id }}</td>
+      <td>{{ flight.Dest_id }}</td>
+      <td>{{ flight.Begin_DateTime }}</td>
+      <td>{{ flight.End_DateTime }}</td>
+      <td>{{ flight.Q_Tickets }}</td>
+      </tr> 
+      {% endfor %}
+  </table>
+{% endblock %}
+{% endautoescape %}

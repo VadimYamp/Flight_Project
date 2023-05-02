@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% autoescape off %}
+{% block title %}
+רשימת כרטיסי-טיסה
+{% endblock %}
+
+{% block content %}
+  <h1 style="background-color:#500050; color:#FFFFFF;">רשימת כרטיסי-טיסה</h1>
+  <table style="background-color:#500050; color:#FFFFFF; font-size: 50px; text-align: center; font-weight: bolder;
+  border: 3px solid #FFFFFF; border-collapse: collapse;">
+    <tr>
+      <th>מס'</th>
+      <th>טיסה</th>
+      <th>לקוח</th>
+      </tr>
+      {% for ticket in Tickets %}
+      <tr>
+      <td>{{ ticket.id }}</td>
+      <td>{{ ticket.Flight_id }}</td>
+      <td>{{ ticket.Cust_id }}</td>
+      </tr> 
+      {% endfor %}
+  </table>
+{% endblock %}
+{% endautoescape %}

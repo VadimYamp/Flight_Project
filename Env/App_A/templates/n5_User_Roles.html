@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% autoescape off %}
+{% block title %}
+דרגות סיווג
+{% endblock %}
+
+{% block content %}
+  <h1 style="background-color:#000000; color:#FF8000;">דרגות סיווג</h1>
+  <table style="background-color:#000000; color:#FF8000; font-size: 50px; text-align: center; font-weight: bolder;
+  border: 3px solid #FFFFFF; border-collapse: collapse;">
+    <tr>
+      <th>מס'</th>
+      <th>שם</th>
+      </tr>
+      {% for user_role in User_Roles %}
+      <tr>
+      <td>{{ user_role.id }}</td>
+      <td>{{ user_role.Name }}</td>
+      </tr> 
+      {% endfor %}
+  </table>
+{% endblock %}
+{% endautoescape %}

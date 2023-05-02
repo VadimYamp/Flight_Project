@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% autoescape off %}
+{% block title %}
+רשימת חברות-תעופה
+{% endblock %}
+
+{% block content %}
+  <h1 style="background-color:#000000; color:#00FFFF;">רשימת חברות-תעופה</h1>
+  <table style="background-color:#000000; color:#00FFFF; font-size: 50px; text-align: center; font-weight: bolder;
+  border: 3px solid #FFFFFF; border-collapse: collapse;">
+    <tr>
+      <th>מס'</th>
+      <th>שם</th>
+      <th>מדינה</th>
+      <th>מס' משתמש</th>
+      </tr>
+      {% for Airline_Company in Airline_Companies %}
+      <tr>
+      <td>{{ Airline_Company.id }}</td>
+      <td>{{ Airline_Company.Name }}</td>
+      <td>{{ Airline_Company.Country.Name }}</td>
+      <td>{{ Airline_Company.User_id }}</td>
+      </tr> 
+      {% endfor %}
+  </table>
+{% endblock %}
+{% endautoescape %}
