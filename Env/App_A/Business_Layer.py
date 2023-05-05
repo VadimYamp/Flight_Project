@@ -17,7 +17,7 @@ class Base_Facade ():
     # טיסה לפי מספר סידורי
     def d03_Get_Flight_By_id(self,_id):
         return b14_Get_Flight_By_Id(id)
-
+    
     # טיסה לפי נתונים:מדינת מקור,מדינת יעד ותאריך
     def d04_Get_Flights_By_Data(self,Origin_C_id, Dest_C_id, Date):
         return c05_Get_Flights_By_Data(Origin_C_id, Dest_C_id, Date)

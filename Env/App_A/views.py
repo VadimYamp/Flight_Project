@@ -131,14 +131,8 @@ def Logout(request):
 # GET request
 @ensure_csrf_cookie
 def n1(request):
-    
-    _user = None
-    if 'user' in request.session:
-        _userSession = request.session['user']
-        _userList = list(serializers.deserialize("json", _userSession))
-        _user = _userList[0].object
-        
-        if _user.Role.id != 1:
+    _user = request.session_user
+    if _user and (_user.Role.id != 1 and _user.Role.id != 2):
             return redirect('home')
     
     _user_facade = Administrator_Facade()
@@ -178,14 +172,9 @@ def n1(request):
 
 @ensure_csrf_cookie
 def n2(request):
-    _user = None
-    if 'user' in request.session:
-        _userSession = request.session['user']
-        _userList = list(serializers.deserialize("json", _userSession))
-        _user = _userList[0].object
-        
-        if _user.Role.id != 1:
-            return redirect('home')
+    _user = request.session_user
+    if _user and _user.Role.id != 1:
+        return redirect('home')
     
     _user_facade = Administrator_Facade()
     if request.method == 'POST':
@@ -210,11 +199,8 @@ def n2(request):
 
 @ensure_csrf_cookie
 def n3(request):
-    _user = None
-    if 'user' in request.session:
-        _userSession = request.session['user']
-        _userList = list(serializers.deserialize("json", _userSession))
-        _user = _userList[0].object
+    _user = request.session_user
+        
     if   _user.Role.id==3: _user_facade = Customer_Facade()   
     elif _user.Role.id==2: _user_facade = Airline_Facade()
     elif _user.Role.id==1: _user_facade = Administrator_Facade() 
@@ -280,6 +266,7 @@ def n5(request):
     return HttpResponse(template.render(context, request))
 
 def n6(request):
+    _user = None
     template = loader.get_template('n6_Countries.html')
     context = {
         'Current_user':     _user,
@@ -288,20 +275,31 @@ def n6(request):
     return HttpResponse(template.render(context, request))
 
 def n7(request):
+    _user = request.session_user
+    if _user and _user.Role.id != 1:
+        return redirect('home')
+    
+    _flights = None
+    if   _user.Role.id==3: _flights = Customer_Facade().i04_Get_My_Tickets(_user.id)
+    elif _user.Role.id==2: _flights = Airline_Facade().j05_Get_My_Flights(_user.id)
+    elif _user.Role.id==1: _flights = Administrator_Facade().d02_Get_All_Flights()
+    
+    
     template = loader.get_template('n7_Flights.html')
     context = {
-        'Current_user':     _user, 
-        'All_Flights':             b07_Get_All_Flights(),
-        'Airline_Flights':         c06_Get_Flights_By_Airline_id(id),
+        'Current_user':             _user, 
+        'All_Flights':             _flights,
+        #'Airline_Flights':         c06_Get_Flights_By_Airline_id(id),
     }
     return HttpResponse(template.render(context, request))
 
 def n8(request):
+    _user = None
     template = loader.get_template('n8_Tickets.html')
     context = {
         'Current_user':     _user,
         'All_Tickets':      b08_Get_All_Tickets(),
-        'Cust_Tickets':     c15_Get_Flights_By_Customer(id),
+        #'Cust_Tickets':     c15_Get_Flights_By_Customer(id),
     }
     return HttpResponse(template.render(context, request))
 
