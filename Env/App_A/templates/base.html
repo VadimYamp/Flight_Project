@@ -15,16 +15,32 @@
       <span><a href="{% url 'login' %}"
         style="background-color:#004000; color:#FFFFFF;">התחברות</a></span>
 
-    <span> <a href="{% url 'n3' %}"
+    <span> <a href="{% url 'n3_Airlines_Page' %}"
       style="background-color:#505000; color:#FFFFFF;">חברות-תעופה</a></span>
-    <span> <a href="{% url 'n6' %}"
+    <span> <a href="{% url 'n6_Countries_Page' %}"
       style="background-color:#005050; color:#FFFFFF;">יעדים</a></span>
-    <span> <a href="{% url 'n7' %}"
+    <span> <a href="{% url 'n7_Flights_Page' %}"
       style="background-color:#500050; color:#FFFFFF;">טיסות</a></span>
 
     {% if Current_user and Current_user.Role.id == 1 %}
-      <span> <a href="{% url 'c2' %}"
-        style="background-color:#500050; color:#FFFFFF;">API List</a></span>
+      <span> <a href="{% url 'API_List' %}"
+        style="background-color:#500050; color:#FFFFFF;">API_List</a></span>
+
+      <span> <a href="{% url 'n1_Users_Page' %}"
+        style="background-color:#500050; color:#FFFFFF;">כל המשתמשים</a></span>
+
+      <span> <a href="{% url 'n2_Customers_Page' %}"
+        style="background-color:#500050; color:#FFFFFF;">כל הלקוחות</a></span>
+
+      <span> <a href="{% url 'n4_Administrators_Page' %}"
+       style="background-color:#500050; color:#FFFFFF;">כל המנהלים</a></span>
+
+      <span> <a href="{% url 'n5_User_Roles_Page' %}"
+       style="background-color:#500050; color:#FFFFFF;">סיווג הרשאות</a></span>
+
+       <span> <a href="{% url 'n8_Tickets_Page' %}"
+        style="background-color:#500050; color:#FFFFFF;">כל הכרטיסי טיסה</a></span>
+
     {% endif %}
   </nav>
   {% block current_user %}

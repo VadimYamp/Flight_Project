@@ -3,6 +3,10 @@ from django.urls import path
 from App_A.viewsAPI import *
 
 urlpatterns = [
+    path('API_List/',
+          API_List,          
+          name='API_List'),
+      
     path('API_01_GetAllUsers/',
           API_01_GetAllUsers,          
           name='API_01_GetAllUsers'),

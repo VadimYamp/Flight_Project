@@ -130,9 +130,9 @@ def Logout(request):
 
 # GET request
 @ensure_csrf_cookie
-def n1(request):
+def n1_Users_Page(request):
     _user = request.session_user
-    if _user and (_user.Role.id != 1 and _user.Role.id != 2):
+    if _user and (_user.Role.id != 1):
             return redirect('home')
     
     _user_facade = Administrator_Facade()
@@ -147,22 +147,11 @@ def n1(request):
             # Get the object to delete
             _id = request.POST.get('delete_id')
             _role_id = request.POST.get('delete_role_id')
-            _user_facade.k040_Remove_User(_id, _role_id)
+            _user_facade.k04_Remove_User(_id, _role_id)
             
             # Redirect to the same page to avoid resubmission
-            return redirect('n1')
-        # # Check if the update button was clicked
-        # elif request.POST.get('update'):
-        #     # Get the object to update
-        #     obj = MyModel.objects.get(id=request.POST.get('update'))
-        #     # TODO: Update the object in the database
-        #     # TODO: Redirect to the same page to avoid resubmission
-        #     return ...
-        
-    
-    #ShaulMalka
-    #001001001
-    
+            return redirect('Users_Page')
+          
     template = loader.get_template('n1_Users.html')
     context = {
         'Current_user':     _user,
@@ -171,7 +160,7 @@ def n1(request):
     return HttpResponse(template.render(context, request))
 
 @ensure_csrf_cookie
-def n2(request):
+def n2_Customers_Page(request):
     _user = request.session_user
     if _user and _user.Role.id != 1:
         return redirect('home')
@@ -189,7 +178,7 @@ def n2(request):
             _id = request.POST.get('delete_id')
             _user_facade.k05_Remove_Customer(_id)           
             # Redirect to the same page to avoid resubmission
-            return redirect('n2')  
+            return redirect('n2_Customers_Page')  
     template = loader.get_template('n2_Customers.html')
     context = {
         'Current_user':             _user,
@@ -198,35 +187,38 @@ def n2(request):
     return HttpResponse(template.render(context, request))
 
 @ensure_csrf_cookie
-def n3(request):
-    _user = request.session_user
+def n3_Airlines_Page(request):
+    _user = None
+    if 'user' in request.session:
+        _userSession = request.session['user']
+        _userList = list(serializers.deserialize("json", _userSession))
+        _user = _userList[0].object
         
-    if   _user.Role.id==3: _user_facade = Customer_Facade()   
-    elif _user.Role.id==2: _user_facade = Airline_Facade()
-    elif _user.Role.id==1: _user_facade = Administrator_Facade() 
-    else:                  _user_facade = Base_Facade() 
-        
+        if _user.Role.id != 1:
+            return redirect('home')
+    
+    _user_facade = Administrator_Facade()
     if request.method == 'POST':
         
         # validate the CSRF token
         if not request.POST.get('csrfmiddlewaretoken'):
             return HttpResponseBadRequest('Missing CSRF token')
         
-        # Check if the delete button was clicked
+        # האם כפתור המחיקה נלחץ
         if request.POST.get('delete_id'):
-            # Get the object to delete
+            # הבאת השורה למחיקה
             _id = request.POST.get('delete_id')
             _user_facade.k06_Remove_Airline(_id)           
             # חזרה לטבלה לאחר הפעולה
-            return redirect('n3')  
+            return redirect('n3_Airlines_Page')  
     template = loader.get_template('n3_Airline_Companies.html')
     context = {
-        'Current_user':     _user,
-        'Airline_Companies':     b03_Get_All_Airline_Companies(),
+        'Current_user':      _user,
+        'Airline_Companies': b03_Get_All_Airline_Companies(),
     }
     return HttpResponse(template.render(context, request))
 
-def n4(request):
+def n4_Administrators_Page(request):
     _user = None
     if 'user' in request.session:
         _userSession = request.session['user']
@@ -257,15 +249,31 @@ def n4(request):
     }
     return HttpResponse(template.render(context, request))
 
-def n5(request):
+def n5_User_Roles_Page(request):
+    _user = None
+    if 'user' in request.session:
+        _userSession = request.session['user']
+        _userList = list(serializers.deserialize("json", _userSession))
+        _user = _userList[0].object
+        
+        if _user.Role.id != 1:
+            return redirect('home')
+    
+    _user_facade = Administrator_Facade()
+    if request.method == 'POST':
+        
+        # validate the CSRF token
+        if not request.POST.get('csrfmiddlewaretoken'):
+            return HttpResponseBadRequest('Missing CSRF token')
+         
     template = loader.get_template('n5_User_Roles.html')
     context = {
         'Current_user':     _user,
-        'User_Roles':            b05_Get_All_User_Roles(),
+        'User_Roles':             b05_Get_All_User_Roles(),
     }
     return HttpResponse(template.render(context, request))
 
-def n6(request):
+def n6_Countries_Page(request):
     _user = None
     template = loader.get_template('n6_Countries.html')
     context = {
@@ -274,37 +282,34 @@ def n6(request):
     }
     return HttpResponse(template.render(context, request))
 
-def n7(request):
-    _user = request.session_user
-    if _user and _user.Role.id != 1:
-        return redirect('home')
-    
-    _flights = None
-    if   _user.Role.id==3: _flights = Customer_Facade().i04_Get_My_Tickets(_user.id)
-    elif _user.Role.id==2: _flights = Airline_Facade().j05_Get_My_Flights(_user.id)
-    elif _user.Role.id==1: _flights = Administrator_Facade().d02_Get_All_Flights()
-    
-    
+def n7_Flights_Page(request):
+    _user = None
     template = loader.get_template('n7_Flights.html')
     context = {
-        'Current_user':             _user, 
-        'All_Flights':             _flights,
-        #'Airline_Flights':         c06_Get_Flights_By_Airline_id(id),
-    }
-    return HttpResponse(template.render(context, request))
-
-def n8(request):
-    _user = None
-    template = loader.get_template('n8_Tickets.html')
-    context = {
         'Current_user':     _user,
-        'All_Tickets':      b08_Get_All_Tickets(),
-        #'Cust_Tickets':     c15_Get_Flights_By_Customer(id),
+        'Flights':             b07_Get_All_Flights(),
     }
     return HttpResponse(template.render(context, request))
 
-
-
-
-
-
+def n8_Tickets_Page(request):
+   _user = None
+   if 'user' in request.session:
+        _userSession = request.session['user']
+        _userList = list(serializers.deserialize("json", _userSession))
+        _user = _userList[0].object
+        
+        if _user.Role.id != 1:
+            return redirect('home')
+    
+        _user_facade = Administrator_Facade()
+        if request.method == 'POST':
+        
+        # validate the CSRF token
+            if not request.POST.get('csrfmiddlewaretoken'):
+                return HttpResponseBadRequest('Missing CSRF token')
+            template = loader.get_template('n8_Tickets.html')
+            context = {
+            'Current_user':     _user,
+            'Tickets':             b08_Get_All_Tickets(),
+             }
+        return HttpResponse(template.render(context, request))
