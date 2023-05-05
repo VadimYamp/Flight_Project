@@ -6,8 +6,6 @@ from App_A.viewsAPI import *
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin_home'),
     path('', Home, name='home'),
-    
-    
     path('Cust_Account/', X_Cust_Account, name='Cust_Account'),
     path('Airline_Account/', Y_Airline_Account, name='Airline_Account'),
     path('Admin_Account/', Z_Admin_Account, name='Admin_Account'),
@@ -20,17 +18,42 @@ urlpatterns = [
     path('logout/', Logout, name='logout'),
     path('test/', Test, name="test"),
     
-    path('n1/', n1, name='n1'),
-    path('n2/', n2, name='n2'),
-    path('n3/', n3, name='n3'),
-    path('n4/', n4, name='n4'),
-    path('n5/', n5, name='n5'),
-    path('n6/', n6, name='n6'),
-    path('n7/', n7, name='n7'),
-    path('n8/', n8, name='n8'),
+    path('n1_Users_Page/',
+         n1_Users_Page,
+         name='n1_Users_Page'),
+    
+    path('n2_Customers_Page/',
+         n2_Customers_Page,
+         name='n2_Customers_Page'),
+    
+    path('n3_Airlines_Page/',
+         n3_Airlines_Page,
+         name='n3_Airlines_Page'),
+    
+    path('n4_Administrators_Page/',
+         n4_Administrators_Page,
+         name='n4_Administrators_Page'),
+    
+    path('n5_User_Roles_Page/',
+         n5_User_Roles_Page,
+         name='n5_User_Roles_Page'),
+    
+    path('n6_Countries_Page/',
+         n6_Countries_Page,
+         name='n6_Countries_Page'),
+    
+    path('n7_Flights_Page/',
+         n7_Flights_Page,
+         name='n7_Flights_Page'),
+    
+    path('n8_Tickets_Page/',
+         n8_Tickets_Page,
+         name='n8_Tickets_Page'),
     
     # API view html
-    path('c2_API/', c2, name='c2'),
+    path('API_List/',
+         API_List,
+         name='API_List'),
     
     # API endpoints
     path('api/', include('App_A.urlsAPI'))

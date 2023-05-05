@@ -9,7 +9,7 @@ from App_A.Data_Layer import *
 from App_A.Business_Layer import *
 
 
-def c2(request):
+def API_List(request):
     _user = None
     if 'user' in request.session:
         _userSession = request.session['user']
