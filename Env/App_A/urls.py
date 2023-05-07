@@ -6,9 +6,17 @@ from App_A.viewsAPI import *
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin_home'),
     path('', Home, name='home'),
-    path('Cust_Account/', X_Cust_Account, name='Cust_Account'),
-    path('Airline_Account/', Y_Airline_Account, name='Airline_Account'),
-    path('Admin_Account/', Z_Admin_Account, name='Admin_Account'),
+    path('X_Cust_Account/',
+         X_Cust_Account,
+         name='X_Cust_Account'),
+    
+    path('Y_Airline_Account/',
+         Y_Airline_Account,
+         name='Y_Airline_Account'),
+    
+    path('Z_Admin_Account/',
+         Z_Admin_Account,
+         name='Z_Admin_Account'),
     
     
     path('R_Cust_Registration/', R_Cust_Registration, name='R_Cust_Registration'),

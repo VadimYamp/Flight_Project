@@ -106,7 +106,7 @@ class Airline_Facade(Base_Facade):
             return False
 
     # רשימת הטיסות של החברת-תעופה
-    def j05_Get_My_Flights (self):
+    def j05_Get_My_Flights (self, id):
         return c06_Get_Flights_By_Airline_id(id)
 
 # מחלקת המנהלים

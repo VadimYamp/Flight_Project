@@ -284,10 +284,24 @@ def n6_Countries_Page(request):
 
 def n7_Flights_Page(request):
     _user = None
+    _user = request.session_user
+    
+    _my_flights = _all_flights = None
+    if _user.Role == 3:
+        _facade = Customer_Facade()
+        _all_flights = _facade.d02_Get_All_Flights()
+        _my_flights = _facade.i04_Get_My_Tickets(_user.id)
+    elif _user.Role == 2:
+        _facade = Airline_Facade()
+        _all_flights = _facade.d02_Get_All_Flights()
+        _my_flights = _facade.j05_Get_My_Flights(_user.id)
+        
+    
     template = loader.get_template('n7_Flights.html')
     context = {
         'Current_user':     _user,
-        'Flights':             b07_Get_All_Flights(),
+        'All_Flights':      _all_flights,
+        'My_Flights':       _my_flights,
     }
     return HttpResponse(template.render(context, request))
 
