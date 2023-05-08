@@ -21,7 +21,7 @@
     {{Current_user.Role.Name}}:</div>
   <div style="background-color:#005050; color:#FFFFFF;">
     {{Current_user.Name}}</div>
-  <div><a href="{% url 'logout' %}" style="background-color:#505000; color:#FFFFFF;">להתנתק</a></div>
+  <div><a href="{% url 'logout' %}" style="background-color:#005050; color:#FFFFFF;">להתנתק</a></div>
     {% endif %}
 
     {% if Current_user and Current_user.Role.id == 1 %}
@@ -29,63 +29,40 @@
     {{Current_user.Role.Name}}:</div>
   <div style="background-color:#500050; color:#FFFFFF;">
     {{Current_user.Name}}</div>
-  <div><a href="{% url 'logout' %}" style="background-color:#505000; color:#FFFFFF;">להתנתק</a></div>
+  <div><a href="{% url 'logout' %}" style="background-color:#500050; color:#FFFFFF;">להתנתק</a></div>
     {% endif %}
 
   {% endblock %}
   <nav>
-      <span><a href="{% url 'home' %}"
-        style="background-color:#000060; color:#FFFFFF;">דף הבית</a></span>
-      <span> <a href="{% url 'R_Cust_Registration' %}"
-        {% if not Current_user %}
-        style="background-color:#500000; color:#FFFFFF;">הרשמה</a></span>
-      <span><a href="{% url 'login' %}"
-        style="background-color:#004000; color:#FFFFFF;">התחברות</a></span>
-        {% endif %}
+      <span><a href="{% url 'home' %}">דף הבית</a></span>
+      {% if not Current_user %}
+     <h1>ברוכים הבאים לאתר לניהול טיסות</h1>
+      <span> <a href="{% url 'R_Cust_Registration' %}">הרשמה</a></span>
+      <span><a href="{% url 'login' %}">התחברות</a></span>
+      {% endif %}
 
-    <span> <a href="{% url 'n3_Airlines_Page' %}"
-      style="background-color:#505000; color:#FFFFFF;">חברות-תעופה</a></span>
-    <span> <a href="{% url 'n6_Countries_Page' %}"
-      style="background-color:#005050; color:#FFFFFF;">יעדים</a></span>
-    <span> <a href="{% url 'n7_Flights_Page' %}"
-      style="background-color:#500050; color:#FFFFFF;">כל הטיסות</a></span>
+    <span> <a href="{% url 'n3_Airlines_Page' %}">חברות-תעופה</a></span>
+    <span> <a href="{% url 'n6_Countries_Page' %}">יעדים</a></span>
+    <span> <a href="{% url 'n7_Flights_Page' %}">כל הטיסות</a></span>
+
       {% if Current_user and Current_user.Role.id == 3 %}
-      <span> <a href="{% url 'X_Cust_Account' %}"
-        style="background-color:#500050; color:#FFFFFF;">החשבון שלי</a></span>
-
-        <span> <a href="{% url 'n7_Flights_Page' %}"
-          style="background-color:#500050; color:#FFFFFF;">הטיסות שלי</a></span>
+      <span> <a href="{% url 'X_Cust_Details' %}">הפרטים שלי</a></span>
+      <span> <a href="{% url 'n7_Flights_Page' %}">הטיסות שלי</a></span>
     {% endif %}
 
     {% if Current_user and Current_user.Role.id == 2 %}
-      <span> <a href="{% url 'Y_Airline_Account' %}"
-        style="background-color:#500050; color:#FFFFFF;">החשבון שלי</a></span>
-
-        <span> <a href="{% url 'n7_Flights_Page' %}"
-          style="background-color:#500050; color:#FFFFFF;">הטיסות שלי</a></span>
+      <span> <a href="{% url 'Y_Airline_Details' %}">הפרטים שלנו</a></span>
+      <span> <a href="{% url 'n7_Flights_Page' %}">הטיסות שלנו</a></span>
     {% endif %}
 
     {% if Current_user and Current_user.Role.id == 1 %}
-      <span> <a href="{% url 'API_List' %}"
-        style="background-color:#500050; color:#FFFFFF;">API_List</a></span>
-
-      <span> <a href="{% url 'Z_Admin_Account' %}"
-       style="background-color:#500050; color:#FFFFFF;">החשבון שלי</a></span>
-
-      <span> <a href="{% url 'n1_Users_Page' %}"
-        style="background-color:#500050; color:#FFFFFF;">כל המשתמשים</a></span>
-
-      <span> <a href="{% url 'n2_Customers_Page' %}"
-        style="background-color:#500050; color:#FFFFFF;">כל הלקוחות</a></span>
-
-      <span> <a href="{% url 'n4_Administrators_Page' %}"
-       style="background-color:#500050; color:#FFFFFF;">כל המנהלים</a></span>
-
-      <span> <a href="{% url 'n5_User_Roles_Page' %}"
-       style="background-color:#500050; color:#FFFFFF;">סיווג הרשאות</a></span>
-
-       <span> <a href="{% url 'n8_Tickets_Page' %}"
-        style="background-color:#500050; color:#FFFFFF;">כל הכרטיסי טיסה</a></span>
+      <span> <a href="{% url 'API_List' %}">API_List</a></span>
+      <span> <a href="{% url 'Z_Admin_Details' %}">הפרטים שלנו</a></span>
+      <span> <a href="{% url 'n1_Users_Page' %}">כל המשתמשים</a></span>
+      <span> <a href="{% url 'n2_Customers_Page' %}">כל הלקוחות</a></span>
+      <span> <a href="{% url 'n4_Administrators_Page' %}">כל המנהלים</a></span>
+      <span> <a href="{% url 'n5_User_Roles_Page' %}">סיווג הרשאות</a></span>
+      <span> <a href="{% url 'n8_Tickets_Page' %}">כל הכרטיסי טיסה</a></span>
     {% endif %}
   </nav>
   {% block content %}

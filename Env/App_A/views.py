@@ -26,20 +26,20 @@ def Home(request):
     }
     return HttpResponse(template.render(context, request))
 
-def X_Cust_Account(request):
-    template = loader.get_template('X_Cust_Account.html')
+def X_Cust_Details(request):
+    template = loader.get_template('X_Cust_Details.html')
     context = {  
     }
     return HttpResponse(template.render(context, request))
 
-def Y_Airline_Account(request):
-    template = loader.get_template('Y_Airline_Account.html')
+def Y_Airline_Details(request):
+    template = loader.get_template('Y_Airline_Details.html')
     context = {  
     }
     return HttpResponse(template.render(context, request))
 
-def Z_Admin_Account(request):
-    template = loader.get_template('Z_Admin_Account.html')
+def Z_Admin_Details(request):
+    template = loader.get_template('Z_Admin_Details.html')
     context = {  
     }
     return HttpResponse(template.render(context, request))
@@ -121,9 +121,7 @@ def Login(request):
     return render(request, 'Login.html', {'form': form})
 
 def Logout(request):
-    #logout(request)
-    del request.session['user']
-    
+    del request.session['user']   
     response = HttpResponseRedirect(reverse('home'))
     response.delete_cookie('csrftoken')
     return response
@@ -131,7 +129,10 @@ def Logout(request):
 # GET request
 @ensure_csrf_cookie
 def n1_Users_Page(request):
-    _user = request.session_user
+    _user=None
+    _userSession = request.session['user']
+    _userList = list(serializers.deserialize("json", _userSession))
+    _user = _userList[0].object
     if _user and (_user.Role.id != 1):
             return redirect('home')
     
@@ -161,7 +162,10 @@ def n1_Users_Page(request):
 
 @ensure_csrf_cookie
 def n2_Customers_Page(request):
-    _user = request.session_user
+    _user=None
+    _userSession = request.session['user']
+    _userList = list(serializers.deserialize("json", _userSession))
+    _user = _userList[0].object
     if _user and _user.Role.id != 1:
         return redirect('home')
     
@@ -187,30 +191,17 @@ def n2_Customers_Page(request):
     return HttpResponse(template.render(context, request))
 
 @ensure_csrf_cookie
-def n3_Airlines_Page(request):
+def n3_Airlines_Page(request):   
     _user = None
     if 'user' in request.session:
         _userSession = request.session['user']
         _userList = list(serializers.deserialize("json", _userSession))
         _user = _userList[0].object
-        
-        if _user.Role.id != 1:
-            return redirect('home')
     
-    _user_facade = Administrator_Facade()
-    if request.method == 'POST':
-        
+    if request.method == 'POST':      
         # validate the CSRF token
         if not request.POST.get('csrfmiddlewaretoken'):
-            return HttpResponseBadRequest('Missing CSRF token')
-        
-        # האם כפתור המחיקה נלחץ
-        if request.POST.get('delete_id'):
-            # הבאת השורה למחיקה
-            _id = request.POST.get('delete_id')
-            _user_facade.k06_Remove_Airline(_id)           
-            # חזרה לטבלה לאחר הפעולה
-            return redirect('n3_Airlines_Page')  
+            return HttpResponseBadRequest('Missing CSRF token') 
     template = loader.get_template('n3_Airline_Companies.html')
     context = {
         'Current_user':      _user,
@@ -218,7 +209,8 @@ def n3_Airlines_Page(request):
     }
     return HttpResponse(template.render(context, request))
 
-def n4_Administrators_Page(request):
+@ensure_csrf_cookie
+def n4_Administrators_Page(request):   
     _user = None
     if 'user' in request.session:
         _userSession = request.session['user']
@@ -227,10 +219,8 @@ def n4_Administrators_Page(request):
         
         if _user.Role.id != 1:
             return redirect('home')
-    
     _user_facade = Administrator_Facade()
-    if request.method == 'POST':
-        
+    if request.method == 'POST':     
         # validate the CSRF token
         if not request.POST.get('csrfmiddlewaretoken'):
             return HttpResponseBadRequest('Missing CSRF token')
@@ -249,6 +239,7 @@ def n4_Administrators_Page(request):
     }
     return HttpResponse(template.render(context, request))
 
+@ensure_csrf_cookie
 def n5_User_Roles_Page(request):
     _user = None
     if 'user' in request.session:
@@ -273,8 +264,13 @@ def n5_User_Roles_Page(request):
     }
     return HttpResponse(template.render(context, request))
 
+@ensure_csrf_cookie
 def n6_Countries_Page(request):
     _user = None
+    if 'user' in request.session:
+        _userSession = request.session['user']
+        _userList = list(serializers.deserialize("json", _userSession))
+        _user = _userList[0].object
     template = loader.get_template('n6_Countries.html')
     context = {
         'Current_user':     _user,
@@ -282,29 +278,23 @@ def n6_Countries_Page(request):
     }
     return HttpResponse(template.render(context, request))
 
+@ensure_csrf_cookie
 def n7_Flights_Page(request):
     _user = None
-    _user = request.session_user
-    
-    _my_flights = _all_flights = None
-    if _user.Role == 3:
-        _facade = Customer_Facade()
-        _all_flights = _facade.d02_Get_All_Flights()
-        _my_flights = _facade.i04_Get_My_Tickets(_user.id)
-    elif _user.Role == 2:
-        _facade = Airline_Facade()
-        _all_flights = _facade.d02_Get_All_Flights()
-        _my_flights = _facade.j05_Get_My_Flights(_user.id)
-        
-    
+    if 'user' in request.session:
+        _userSession = request.session['user']
+        _userList = list(serializers.deserialize("json", _userSession))
+        _user = _userList[0].object
     template = loader.get_template('n7_Flights.html')
     context = {
         'Current_user':     _user,
-        'All_Flights':      _all_flights,
-        'My_Flights':       _my_flights,
+        'All_Flights':       b07_Get_All_Flights(),
+       # 'My_Tickets':       c15_Get_Flights_By_Customer(id),
+       #'our_Flights':      c06_Get_Flights_By_Airline_id(id),
     }
     return HttpResponse(template.render(context, request))
 
+@ensure_csrf_cookie
 def n8_Tickets_Page(request):
    _user = None
    if 'user' in request.session:
@@ -315,15 +305,16 @@ def n8_Tickets_Page(request):
         if _user.Role.id != 1:
             return redirect('home')
     
-        _user_facade = Administrator_Facade()
-        if request.method == 'POST':
+   _user_facade = Administrator_Facade()
+   if request.method == 'POST':
         
         # validate the CSRF token
-            if not request.POST.get('csrfmiddlewaretoken'):
-                return HttpResponseBadRequest('Missing CSRF token')
-            template = loader.get_template('n8_Tickets.html')
-            context = {
-            'Current_user':     _user,
-            'Tickets':             b08_Get_All_Tickets(),
-             }
+        if not request.POST.get('csrfmiddlewaretoken'):
+            return HttpResponseBadRequest('Missing CSRF token')
+         
+        template = loader.get_template('n8_Tickets.html')
+        context = {
+        'Current_user':     _user,
+        'Tickets':          b08_Get_All_Tickets(),
+    }
         return HttpResponse(template.render(context, request))
