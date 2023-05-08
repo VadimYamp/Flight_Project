@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% autoescape off %}
+{% block title %}
+רשימת מנהלים
+{% endblock %}
+
+{% block content %}
+  <h1 style="background-color:#000000; color:#FF00FF;">רשימת מנהלים</h1>
+  <table style="background-color:#000000; color:#FF00FF; font-size: 50px; text-align: center; font-weight: bolder;
+  border: 3px solid #FFFFFF; border-collapse: collapse;">
+    <tr>
+      <th>מס'</th>
+      <th>שם פרטי</th>
+      <th>שם משפחה</th>
+      <th>מס' משתמש</th>
+      </tr>
+      {% for Administrator in Administrators %}
+      <tr>
+      <td>{{ Administrator.id }}</td>
+      <td>{{ Administrator.First_Name }}</td>
+      <td>{{ Administrator.Last_Name }}</td>
+      <td>{{ Administrator.User_id }}</td>
+      </tr> 
+      {% endfor %}
+  </table>
+{% endblock %}
+{% endautoescape %}

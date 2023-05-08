@@ -182,11 +182,6 @@ def c15_Get_Flights_By_Customer(_Cust_id):
     return n8_Tickets.Flight.objects.filter \
         (Customer__id=_Cust_id)
 
-# def formfield_for_dbfield(db_field, **kwargs):
-#     if db_field.name == "Role":
-#         return 1
-#     return db_field.formfield(**kwargs)
-
 # פונקציות להרשמה והתחברות זמניים
 class RegistrationForm(forms.ModelForm):   
     Password = forms.CharField(widget=forms.PasswordInput, label='סיסמא') 

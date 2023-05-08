@@ -4,11 +4,25 @@ from App_A.views import *
 from App_A.viewsAPI import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls, name='admin_home'),
-    path('', Home, name='home'),
-    path('Cust_Account/', X_Cust_Account, name='Cust_Account'),
-    path('Airline_Account/', Y_Airline_Account, name='Airline_Account'),
-    path('Admin_Account/', Z_Admin_Account, name='Admin_Account'),
+    path('admin/',
+         admin.site.urls,
+         name='admin_home'),
+    
+    path('',
+         Home,
+         name='home'),
+    
+    path('X_Cust_Details/',
+         X_Cust_Details,
+         name='X_Cust_Details'),
+    
+    path('Y_Airline_Details/',
+         Y_Airline_Details,
+         name='Y_Airline_Details'),
+    
+    path('Z_Admin_Details/',
+         Z_Admin_Details,
+         name='Z_Admin_Details'),
     
     
     path('R_Cust_Registration/', R_Cust_Registration, name='R_Cust_Registration'),
