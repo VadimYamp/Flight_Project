@@ -12,12 +12,21 @@
       <th>מס'</th>
       <th>טיסה</th>
       <th>לקוח</th>
+      <th>פעולה</th>
       </tr>
       {% for ticket in Tickets %}
       <tr>
       <td>{{ ticket.id }}</td>
       <td>{{ ticket.Flight_id }}</td>
       <td>{{ ticket.Cust_id }}</td>
+      <td>
+      <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="delete_id" value="{{ customer.id }}">
+      <button type="submit">מחק</button>
+      <input type="hidden" name="update" value="{{ user.id }}">
+      <button type="submit">עדכן</button>
+      </td>
       </tr> 
       {% endfor %}
   </table>

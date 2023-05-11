@@ -13,6 +13,7 @@
       <th>שם פרטי</th>
       <th>שם משפחה</th>
       <th>מס' משתמש</th>
+      <th>פעולה</th>
       </tr>
       {% for Administrator in Administrators %}
       <tr>
@@ -20,6 +21,14 @@
       <td>{{ Administrator.First_Name }}</td>
       <td>{{ Administrator.Last_Name }}</td>
       <td>{{ Administrator.User_id }}</td>
+      <td>
+      <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="delete_id" value="{{ customer.id }}">
+      <button type="submit">מחק</button>
+      <input type="hidden" name="update" value="{{ user.id }}">
+      <button type="submit">עדכן</button>
+      <td>
       </tr> 
       {% endfor %}
   </table>
