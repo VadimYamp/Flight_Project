@@ -140,18 +140,17 @@ def n1_Users_Page(request):
     if request.method == 'POST':
     
         # validate the CSRF token
-        if not request.POST.get('csrfmiddlewaretoken'):
-            return HttpResponseBadRequest('Missing CSRF token')
+        #if not request.POST.get('csrfmiddlewaretoken'):
+            #return HttpResponseBadRequest('Missing CSRF token')
     
-        # Check if the delete button was clicked
+        # האם הכפתור של המחיקה נלחץ
         if request.POST.get('delete_id'):
-            # Get the object to delete
+            # הבא את השורה למחיקה
             _id = request.POST.get('delete_id')
             _role_id = request.POST.get('delete_role_id')
-            _user_facade.k04_Remove_User(_id, _role_id)
-            
-            # Redirect to the same page to avoid resubmission
-            return redirect('Users_Page')
+            _user_facade.k04_Remove_User(_id)           
+            # חזור לאותו הדף
+            return redirect('n1_Users_Page')
           
     template = loader.get_template('n1_Users.html')
     context = {
@@ -176,13 +175,15 @@ def n2_Customers_Page(request):
         if not request.POST.get('csrfmiddlewaretoken'):
             return HttpResponseBadRequest('Missing CSRF token')
         
-        # Check if the delete button was clicked
+         # האם הכפתור של המחיקה נלחץ
         if request.POST.get('delete_id'):
-            # Get the object to delete
+            # הבא את השורה למחיקה
             _id = request.POST.get('delete_id')
-            _user_facade.k05_Remove_Customer(_id)           
-            # Redirect to the same page to avoid resubmission
-            return redirect('n2_Customers_Page')  
+            _role_id = request.POST.get('delete_role_id')
+            _user_facade.k05_Remove_Customer(_id, _role_id)           
+            # חזור לאותו הדף
+            return redirect('n2_Customers_Page')
+         
     template = loader.get_template('n2_Customers.html')
     context = {
         'Current_user':             _user,
@@ -202,6 +203,7 @@ def n3_Airlines_Page(request):
         # validate the CSRF token
         if not request.POST.get('csrfmiddlewaretoken'):
             return HttpResponseBadRequest('Missing CSRF token') 
+        
     template = loader.get_template('n3_Airline_Companies.html')
     context = {
         'Current_user':      _user,

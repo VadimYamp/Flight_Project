@@ -6,7 +6,7 @@
 
 {% block content %}
   <h1 style="background-color:#000000; color:#FFFF00;">רשימת לקוחות</h1>
-  <table style="background-color:#000000; color:#FFFF00; font-size: 50px; text-align: center; font-weight: bolder;
+  <table style="background-color:#000000; color:#FFFF00; font-size: 45px; text-align: center; font-weight: bolder;
   border: 3px solid #FFFFFF; border-collapse: collapse;">
     <tr>
       <th>מס'</th>
@@ -16,7 +16,7 @@
       <th>טלפון</th>
       <th>אשראי</th>
       <th>מס' משתמש</th>
-      <th>Action</th>
+      <th>פעולה</th>
       </tr>
       {% for customer in Customers %}
       <tr>
@@ -31,7 +31,9 @@
         <form method="post">
           {% csrf_token %}
           <input type="hidden" name="delete_id" value="{{ customer.id }}">
-          <button type="submit">Delete</button>
+          <button type="submit">מחק</button>
+          <input type="hidden" name="update" value="{{ user.id }}">
+          <button type="submit">עדכן</button>
         </form>
       </td>
       </tr> 

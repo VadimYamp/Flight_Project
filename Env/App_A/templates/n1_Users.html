@@ -17,7 +17,7 @@
       <th>סיסמא</th>
       <th>דואר</th>
       <th>סיווג</th>
-      <th>Action</th>
+      <th>פעולה</th>
       </tr>
       {% for user in Users %}
       <tr>
@@ -29,9 +29,10 @@
       <td>
         <form method="post">
           {% csrf_token %}
+            <input type="hidden" name="delete_id" value="{{ customer.id }}">
+            <button type="submit">מחק</button>
           <input type="hidden" name="update" value="{{ user.id }}">
-          <input type="text" name="name" value="{{ user.Name }}">
-          <button type="submit">Update</button>
+          <button type="submit">עדכן</button>
         </form>
       </td>
       </tr> 
