@@ -147,8 +147,7 @@ def n1_Users_Page(request):
         if request.POST.get('delete_id'):
             # הבא את השורה למחיקה
             _id = request.POST.get('delete_id')
-            _role_id = request.POST.get('delete_role_id')
-            _user_facade.k04_Remove_User(_id)           
+            _user_facade.k04_Remove_User(_id,_role_id)           
             # חזור לאותו הדף
             return redirect('n1_Users_Page')
           
